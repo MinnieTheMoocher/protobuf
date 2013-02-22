@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 2.8)
 project(libprotobuf)
 
+remove_definitions(-Wshadow)
 
 include_directories(
    ${CMAKE_CURRENT_SOURCE_DIR}
@@ -70,4 +71,3 @@ endif(CMAKE_CROSSCOMPILING)
 add_library(libprotobuf STATIC
    ${SOURCES}
 )
-

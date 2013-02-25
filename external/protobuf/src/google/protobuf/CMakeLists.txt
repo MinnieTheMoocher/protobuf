@@ -1,14 +1,12 @@
 cmake_minimum_required(VERSION 2.8)
 project(libprotobuf)
 
-remove_definitions(-Wshadow)
+remove_definitions("-Wshadow")
 
-include_directories(
-   ${CMAKE_CURRENT_SOURCE_DIR}
-   ${CMAKE_SOURCE_DIR}/external/protobuf/src
-   ${CMAKE_SOURCE_DIR}/external/protobuf/config
-   )
-
+include_directories(BEFORE
+                    ${CMAKE_CURRENT_SOURCE_DIR}
+                    ${CMAKE_SOURCE_DIR}/external/protobuf/src
+                    ${CMAKE_SOURCE_DIR}/external/protobuf/config)
 
 set(SOURCES
    ../../../config/config.h

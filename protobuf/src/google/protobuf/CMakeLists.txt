@@ -1,12 +1,12 @@
 cmake_minimum_required(VERSION 2.8)
-project(libprotobuf)
+project(protobuf)
 
 remove_definitions("-Wshadow")
 
 include_directories(BEFORE
                     ${CMAKE_CURRENT_SOURCE_DIR}
-                    ${CMAKE_SOURCE_DIR}/external/protobuf/src
-                    ${CMAKE_SOURCE_DIR}/external/protobuf/config)
+                    ${CMAKE_SOURCE_DIR}/protobuf/src
+                    ${CMAKE_SOURCE_DIR}/protobuf/config)
 
 set(SOURCES
    ../../../config/config.h
@@ -66,6 +66,6 @@ else (CMAKE_CROSSCOMPILING)
    endif (UNIX)
 endif(CMAKE_CROSSCOMPILING)
 
-add_library(libprotobuf STATIC
+add_library(protobuf STATIC
    ${SOURCES}
 )

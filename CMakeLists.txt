@@ -1,6 +1,6 @@
 
 cmake_minimum_required(VERSION 2.8)
-PROJECT(DltLogging)
+PROJECT(protobuf)
 
 
 # DCMAKE_BUILD_TYPE:STRING=<build type>
@@ -153,18 +153,13 @@ set_source_files_properties(${CMAKE_BINARY_DIR}/configure.hpp
                             HEADER_FILE_ONLY TRUE)
 
 
-find_package(Protobuf REQUIRED)
-if(PROTOBUF_FOUND)
-  message(STATUS "Using system protobuf.")
-else()
-  message(STATUS "Using bundled protobuf.")
-  set(PROTOBUF_INCLUDE_DIRS
-     ${CMAKE_SOURCE_DIR}/external/protobuf/src
-     ${CMAKE_SOURCE_DIR}/external/protobuf/config
-     )
-  set(PROTOBUF_LIBRARIES libprotobuf)
-  set(PROTOBUF_PROTOC_EXECUTABLE ${CMAKE_SOURCE_DIR}/external/protobuf/bin/protoc)
-endif()
+message(STATUS "Using bundled protobuf.")
+set(PROTOBUF_INCLUDE_DIRS
+    ${CMAKE_SOURCE_DIR}/external/protobuf/src
+    ${CMAKE_SOURCE_DIR}/external/protobuf/config
+    )
+set(PROTOBUF_LIBRARIES libprotobuf)
+set(PROTOBUF_PROTOC_EXECUTABLE ${CMAKE_SOURCE_DIR}/external/protobuf/bin/protoc)
 
 message(STATUS "PROTOBUF: ${PROTOBUF_VERSION_STRING}")
 message(STATUS " INC: ${PROTOBUF_INCLUDE_DIRS}")
@@ -179,7 +174,5 @@ include_directories(BEFORE
 # build switches
 add_definitions("-DUSE_QT=1")
 
-add_subdirectory(${CMAKE_SOURCE_DIR}/DltLogging)
-add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/Utilities)
-add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/UnitTests)
-add_subdirectory(${CMAKE_SOURCE_DIR}/external/protobuf/src/google/protobuf)
+add_subdirectory(${CMAKE_SOURCE_DIR}/protobuf/src/google/protobuf)
+

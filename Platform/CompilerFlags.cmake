@@ -1,0 +1,173 @@
+#CMAKE_C_COMPILER 
+#    the compiler used for C files. Normally it is detected and set during the CMake run, but you can override it at configuration time. Note! It can not be changed after the first cmake or ccmake run. Although the gui allows to enter an alternative, it will be ignored in the next 'configure' run. Use for example:
+#    CC=gcc-3.3 CXX=g++-3.3 cmake
+#    to set the compiler. (You can also set CMAKE_C_COMPILER_INIT, before any PROJECT() or ENABLE_LANGUAGE() command.) Any other way (like writing make CC=gcc-3.3 CXX=g++-3.3) will not work. When using distcc or similar tools, you need to write:
+#    CC="distcc gcc-3.3" CXX="distcc g++-3.3" cmake
+#    However, this will empty all your CMAKE_..._FLAGS_... above.
+
+#CMAKE_C_FLAGS 
+#    the compiler flags for compiling C sources. Note you can also specify switches with ADD_DEFINITIONS(). 
+#CMAKE_C_FLAGS_DEBUG 
+#    compiler flags for compiling a debug build from C sources. 
+#CMAKE_C_FLAGS_RELEASE 
+#    compiler flags for compiling a release build from C sources. 
+#CMAKE_C_FLAGS_RELWITHDEBINFO 
+#    compiler flags for compiling a release build with debug flags from C sources
+
+#CMAKE_CXX_FLAGS 
+#    the compiler flags for compiling C++ sources. Note you can also specify switches with ADD_DEFINITIONS(). 
+#CMAKE_CXX_FLAGS_DEBUG 
+#    compiler flags for compiling a debug build from C++ sources. 
+#CMAKE_CXX_FLAGS_RELEASE 
+#    compiler flags for compiling a release build from C++ sources. 
+#CMAKE_CXX_FLAGS_RELWITHDEBINFO 
+#    compiler flags for compiling a release build with debug flags from C++ sources. 
+#CMAKE_RANLIB 
+#    tool for creating libraries. See also CMAKE_AR, as "ar" and "ranlib" are typically used together. 
+#CMAKE_SHARED_LINKER_FLAGS 
+#    additional compiler flags for building shared libraries, e.g.: 
+
+
+SET(CMAKE_C_FLAGS ${CMAKE_C_FLAGS})
+SET(CMAKE_C_FLAGS_DEBUG ${CMAKE_C_FLAGS_DEBUG})
+SET(CMAKE_C_FLAGS_RELEASE ${CMAKE_C_FLAGS_RELEASE})
+SET(CMAKE_C_FLAGS_RELWITHDEBINFO ${CMAKE_C_FLAGS_RELWITHDEBINFO})
+
+SET(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS})
+SET(CMAKE_CXX_FLAGS_DEBUG ${CMAKE_CXX_FLAGS_DEBUG})
+SET(CMAKE_CXX_FLAGS_RELEASE ${CMAKE_CXX_FLAGS_RELEASE})
+SET(CMAKE_CXX_FLAGS_RELWITHDEBINFO ${CMAKE_CXX_FLAGS_RELWITHDEBINFO})
+
+
+if (BUILD_PROCESSOR STREQUAL "x86")
+    message(STATUS "Set Compiler-Flags for x86 build")
+    SET(CMAKE_C_FLAGS ${CMAKE_C_FLAGS})
+    SET(CMAKE_C_FLAGS_DEBUG ${CMAKE_C_FLAGS_DEBUG})
+    SET(CMAKE_C_FLAGS_RELEASE ${CMAKE_C_FLAGS_RELEASE})
+    SET(CMAKE_C_FLAGS_RELWITHDEBINFO ${CMAKE_C_FLAGS_RELWITHDEBINFO})
+
+    SET(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS})
+    SET(CMAKE_CXX_FLAGS_DEBUG ${CMAKE_CXX_FLAGS_DEBUG})
+    SET(CMAKE_CXX_FLAGS_RELEASE ${CMAKE_CXX_FLAGS_RELEASE})
+    SET(CMAKE_CXX_FLAGS_RELWITHDEBINFO ${CMAKE_CXX_FLAGS_RELWITHDEBINFO})
+endif()
+
+if (BUILD_PROCESSOR STREQUAL "arm")
+    message(STATUS "Set Compiler-Flags for ARM build")
+    SET(CMAKE_C_FLAGS ${CMAKE_C_FLAGS})
+    SET(CMAKE_C_FLAGS_DEBUG ${CMAKE_C_FLAGS_DEBUG})
+    SET(CMAKE_C_FLAGS_RELEASE ${CMAKE_C_FLAGS_RELEASE})
+    SET(CMAKE_C_FLAGS_RELWITHDEBINFO ${CMAKE_C_FLAGS_RELWITHDEBINFO})
+
+    SET(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS})
+    SET(CMAKE_CXX_FLAGS_DEBUG ${CMAKE_CXX_FLAGS_DEBUG})
+    SET(CMAKE_CXX_FLAGS_RELEASE ${CMAKE_CXX_FLAGS_RELEASE})
+    SET(CMAKE_CXX_FLAGS_RELWITHDEBINFO ${CMAKE_CXX_FLAGS_RELWITHDEBINFO})
+endif()
+
+## ----------------------- ##
+## compiler-specific Flags ##
+## ----------------------- ##
+
+if (CMAKE_COMPILER_IS_GNUCC) # is TRUE if the compiler is a variant of gcc 
+    message(STATUS "Set Compiler-Flags for Build with GCC")
+    SET(CMAKE_C_FLAGS ${CMAKE_C_FLAGS})
+    SET(CMAKE_C_FLAGS_DEBUG ${CMAKE_C_FLAGS_DEBUG})
+    SET(CMAKE_C_FLAGS_RELEASE ${CMAKE_C_FLAGS_RELEASE})
+    SET(CMAKE_C_FLAGS_RELWITHDEBINFO ${CMAKE_C_FLAGS_RELWITHDEBINFO})
+
+    SET(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS})
+    SET(CMAKE_CXX_FLAGS_DEBUG ${CMAKE_CXX_FLAGS_DEBUG})
+    SET(CMAKE_CXX_FLAGS_RELEASE ${CMAKE_CXX_FLAGS_RELEASE})
+    SET(CMAKE_CXX_FLAGS_RELWITHDEBINFO ${CMAKE_CXX_FLAGS_RELWITHDEBINFO})
+endif()
+
+if (CMAKE_COMPILER_IS_GNUCXX) # is TRUE if the compiler is a variant of g++ 
+    message(STATUS "Set Compiler-Flags for Build with G++")
+    SET(CMAKE_C_FLAGS ${CMAKE_C_FLAGS})
+    SET(CMAKE_C_FLAGS_DEBUG ${CMAKE_C_FLAGS_DEBUG})
+    SET(CMAKE_C_FLAGS_RELEASE ${CMAKE_C_FLAGS_RELEASE})
+    SET(CMAKE_C_FLAGS_RELWITHDEBINFO ${CMAKE_C_FLAGS_RELWITHDEBINFO})
+
+    SET(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS})
+    SET(CMAKE_CXX_FLAGS_DEBUG ${CMAKE_CXX_FLAGS_DEBUG})
+    SET(CMAKE_CXX_FLAGS_RELEASE ${CMAKE_CXX_FLAGS_RELEASE})
+    SET(CMAKE_CXX_FLAGS_RELWITHDEBINFO ${CMAKE_CXX_FLAGS_RELWITHDEBINFO})
+endif()
+
+if (MINGW) # is TRUE when using the MinGW compiler in Windows
+    message(STATUS "Set Compiler-Flags for Build with MinGW")
+    SET(CMAKE_C_FLAGS ${CMAKE_C_FLAGS})
+    SET(CMAKE_C_FLAGS_DEBUG ${CMAKE_C_FLAGS_DEBUG})
+    SET(CMAKE_C_FLAGS_RELEASE ${CMAKE_C_FLAGS_RELEASE})
+    SET(CMAKE_C_FLAGS_RELWITHDEBINFO ${CMAKE_C_FLAGS_RELWITHDEBINFO})
+
+    SET(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS})
+    SET(CMAKE_CXX_FLAGS_DEBUG ${CMAKE_CXX_FLAGS_DEBUG})
+    SET(CMAKE_CXX_FLAGS_RELEASE ${CMAKE_CXX_FLAGS_RELEASE})
+    SET(CMAKE_CXX_FLAGS_RELWITHDEBINFO ${CMAKE_CXX_FLAGS_RELWITHDEBINFO})
+endif()
+
+if (CYGWIN) # is TRUE on Windows when using the CygWin version of cmake 
+    message(STATUS "Set Compiler-Flags for Build with CYGWIN")
+    SET(CMAKE_C_FLAGS ${CMAKE_C_FLAGS})
+    SET(CMAKE_C_FLAGS_DEBUG ${CMAKE_C_FLAGS_DEBUG})
+    SET(CMAKE_C_FLAGS_RELEASE ${CMAKE_C_FLAGS_RELEASE})
+    SET(CMAKE_C_FLAGS_RELWITHDEBINFO ${CMAKE_C_FLAGS_RELWITHDEBINFO})
+
+    SET(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS})
+    SET(CMAKE_CXX_FLAGS_DEBUG ${CMAKE_CXX_FLAGS_DEBUG})
+    SET(CMAKE_CXX_FLAGS_RELEASE ${CMAKE_CXX_FLAGS_RELEASE})
+    SET(CMAKE_CXX_FLAGS_RELWITHDEBINFO ${CMAKE_CXX_FLAGS_RELWITHDEBINFO})
+endif()
+
+if (MSYS) # is TRUE when using the MSYS developer environment in Windows
+    message(STATUS "Set Compiler-Flags for Build with MSYS")
+    SET(CMAKE_C_FLAGS ${CMAKE_C_FLAGS})
+    SET(CMAKE_C_FLAGS_DEBUG ${CMAKE_C_FLAGS_DEBUG})
+    SET(CMAKE_C_FLAGS_RELEASE ${CMAKE_C_FLAGS_RELEASE})
+    SET(CMAKE_C_FLAGS_RELWITHDEBINFO ${CMAKE_C_FLAGS_RELWITHDEBINFO})
+
+    SET(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS})
+    SET(CMAKE_CXX_FLAGS_DEBUG ${CMAKE_CXX_FLAGS_DEBUG})
+    SET(CMAKE_CXX_FLAGS_RELEASE ${CMAKE_CXX_FLAGS_RELEASE})
+    SET(CMAKE_CXX_FLAGS_RELWITHDEBINFO ${CMAKE_CXX_FLAGS_RELWITHDEBINFO})
+endif()
+
+if (BORLAND) # is TRUE on Windows when using a Borland compiler
+    message(STATUS "Set Compiler-Flags for Build with BORLAND")
+    SET(CMAKE_C_FLAGS ${CMAKE_C_FLAGS})
+    SET(CMAKE_C_FLAGS_DEBUG ${CMAKE_C_FLAGS_DEBUG})
+    SET(CMAKE_C_FLAGS_RELEASE ${CMAKE_C_FLAGS_RELEASE})
+    SET(CMAKE_C_FLAGS_RELWITHDEBINFO ${CMAKE_C_FLAGS_RELWITHDEBINFO})
+
+    SET(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS})
+    SET(CMAKE_CXX_FLAGS_DEBUG ${CMAKE_CXX_FLAGS_DEBUG})
+    SET(CMAKE_CXX_FLAGS_RELEASE ${CMAKE_CXX_FLAGS_RELEASE})
+    SET(CMAKE_CXX_FLAGS_RELWITHDEBINFO ${CMAKE_CXX_FLAGS_RELWITHDEBINFO})
+endif()
+
+if (WATCOM) # is TRUE on Windows when using the Open Watcom compiler 
+    message(STATUS "Set Compiler-Flags for Build with WATCOM")
+    SET(CMAKE_C_FLAGS ${CMAKE_C_FLAGS})
+    SET(CMAKE_C_FLAGS_DEBUG ${CMAKE_C_FLAGS_DEBUG})
+    SET(CMAKE_C_FLAGS_RELEASE ${CMAKE_C_FLAGS_RELEASE})
+    SET(CMAKE_C_FLAGS_RELWITHDEBINFO ${CMAKE_C_FLAGS_RELWITHDEBINFO})
+
+    SET(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS})
+    SET(CMAKE_CXX_FLAGS_DEBUG ${CMAKE_CXX_FLAGS_DEBUG})
+    SET(CMAKE_CXX_FLAGS_RELEASE ${CMAKE_CXX_FLAGS_RELEASE})
+    SET(CMAKE_CXX_FLAGS_RELWITHDEBINFO ${CMAKE_CXX_FLAGS_RELWITHDEBINFO})
+endif()
+
+if (CMAKE_BUILD_TYPE STREQUAL "Debug")
+    message (STATUS "Debug-Buildflags: ${CMAKE_CXX_FLAGS} ${CMAKE_CXX_FLAGS_DEBUG}")
+endif()
+
+if (CMAKE_BUILD_TYPE STREQUAL "Release")
+    message (STATUS "Release-Buildflags: ${CMAKE_CXX_FLAGS} ${CMAKE_CXX_FLAGS_RELEASE}")
+endif()
+
+if (CMAKE_BUILD_TYPE STREQUAL "RelWithDebInfo")
+    message (STATUS "RelWithDebInfo-Buildflags: ${CMAKE_CXX_FLAGS} ${CMAKE_CXX_FLAGS_RELWITHDEBINFO}")
+endif()

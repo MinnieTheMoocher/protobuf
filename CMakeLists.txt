@@ -71,6 +71,12 @@ elseif(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
 endif()
 
 
+set(PROTOBUF_INCLUDE_DIRS
+    ${CMAKE_CURRENT_SOURCE_DIR}/src
+    ${CMAKE_CURRENT_SOURCE_DIR}/config
+   )
+set(PROTOBUF_LIBRARIES libprotobuf)
+set(PROTOBUF_PROTOC_EXECUTABLE ${CMAKE_CURRENT_SOURCE_DIR}/bin/protoc)
 
 
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/protobuf/src/google/protobuf)

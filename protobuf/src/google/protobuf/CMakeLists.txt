@@ -5,8 +5,8 @@ remove_definitions("-Wshadow")
 
 include_directories(BEFORE
                     ${CMAKE_CURRENT_SOURCE_DIR}
-                    ${CMAKE_SOURCE_DIR}/protobuf/src
-                    ${CMAKE_SOURCE_DIR}/protobuf/config)
+                    ${CMAKE_CURRENT_SOURCE_DIR}/../../../src
+                    ${CMAKE_CURRENT_SOURCE_DIR}/../../../config)
 
 set(SOURCES
    ../../../config/config.h

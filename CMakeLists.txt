@@ -26,7 +26,6 @@ SET(CMAKE_C_FLAGS_RELEASE "-Os")
 SET(CMAKE_CXX_FLAGS_DEBUG "-O0 -g")
 SET(CMAKE_CXX_FLAGS_RELEASE "-Os")
 
-# DO NOT REMOVE - this will cause the NaviDemo to sigsegv (signal 11)
 add_definitions("-fsigned-char")
 add_definitions("-D_GNU_SOURCE")
 add_definitions("-Wno-write-strings")
@@ -34,9 +33,9 @@ add_definitions("-Wno-unused-function")
 add_definitions("-Wformat")
 add_definitions("-Wformat=2")
 add_definitions("-Wno-error=format-nonliteral")
-add_definitions("-Wshadow")
 add_definitions("-fno-omit-frame-pointer")
 
+#add_definitions("-Wshadow")
 #add_definitions("-Wall -Wextra")
 #add_definitions("-Werror") # gcc 4.4.1 stops compiling here
 #add_definitions("-Winline")
@@ -72,14 +71,14 @@ endif()
 
 
 set(PROTOBUF_INCLUDE_DIRS
-    ${CMAKE_CURRENT_SOURCE_DIR}/protobuf/src
-    ${CMAKE_CURRENT_SOURCE_DIR}/protobuf/config
+    ${CMAKE_CURRENT_SOURCE_DIR}/src
+    ${CMAKE_CURRENT_SOURCE_DIR}/config
     PARENT_SCOPE
    )
 set(PROTOBUF_LIBRARIES protobuf PARENT_SCOPE)
-set(PROTOBUF_PROTOC_EXECUTABLE ${CMAKE_CURRENT_SOURCE_DIR}/protobuf/bin/protoc PARENT_SCOPE)
+set(PROTOBUF_PROTOC_EXECUTABLE ${CMAKE_CURRENT_SOURCE_DIR}/bin/protoc PARENT_SCOPE)
 
 
-add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/protobuf/src/google/protobuf)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/src/google/protobuf)
 
 

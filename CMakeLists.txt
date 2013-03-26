@@ -8,19 +8,20 @@ if(CMAKE_COMPILER_IS_GNUCXX)
 	set(CMAKE_C_FLAGS_RELEASE   "-Os")
 	set(CMAKE_CXX_FLAGS_RELEASE "-Os")
 
-	add_definitions("-fsigned-char")
 	add_definitions("-D_GNU_SOURCE")
-	add_definitions("-Wno-write-strings")
-	add_definitions("-Wno-unused-function")
-	add_definitions("-Wformat")
-	add_definitions("-Wformat=2")
-	add_definitions("-Wno-error=format-nonliteral")
+
+	add_definitions("-fsigned-char")
 	add_definitions("-fno-omit-frame-pointer")
 
-    remove_definitions("-Wshadow")
+	add_definitions("-Wformat")
+	add_definitions("-Wformat=2")
 
-	#add_definitions("-Wall -Wextra")
-	#add_definitions("-Werror")
+	add_definitions("-Wno-write-strings")
+	add_definitions("-Wno-unused-function")
+	add_definitions("-Wno-error=format-nonliteral")
+        add_definitions("-Wno-sign-compare")
+
+        remove_definitions("-Wshadow")
 
 	# omit temporary files
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pipe")

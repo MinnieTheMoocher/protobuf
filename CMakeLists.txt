@@ -1,31 +1,12 @@
 cmake_minimum_required(VERSION 2.8)
 
-
-# DCMAKE_BUILD_TYPE:STRING=<build type>
-IF(NOT CMAKE_BUILD_TYPE)
-   # by default build debug
-   SET(CMAKE_BUILD_TYPE "Debug")
-ENDIF(NOT CMAKE_BUILD_TYPE)
-
-option(WITH_QT5 "Enable to use Qt5, set QT_DIR to your installation directory.")
-
-# Add local package detection rules
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/Modules/")
-
-
-#uncomment to generate a json file with all build files
-#this is used to create/update the understand project
-#set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
-
-# Call cmake with this parameter
-# cmake -DTC_PREFIX=<path-to-toolchain> -DCMAKE_TOOLCHAIN_FILE=Platform/Toolchain-<system>-<cpu>.cmake ../<path-to-source>
-
 if(CMAKE_COMPILER_IS_GNUCXX)
 
-	SET(CMAKE_C_FLAGS_DEBUG "-O0 -g")
-	SET(CMAKE_C_FLAGS_RELEASE "-Os")
-	SET(CMAKE_CXX_FLAGS_DEBUG "-O0 -g")
-	SET(CMAKE_CXX_FLAGS_RELEASE "-Os")
+	set(CMAKE_C_FLAGS_DEBUG     "-O0 -g")
+	set(CMAKE_CXX_FLAGS_DEBUG   "-O0 -g")
+
+	set(CMAKE_C_FLAGS_RELEASE   "-Os")
+	set(CMAKE_CXX_FLAGS_RELEASE "-Os")
 
 	add_definitions("-fsigned-char")
 	add_definitions("-D_GNU_SOURCE")
@@ -36,17 +17,10 @@ if(CMAKE_COMPILER_IS_GNUCXX)
 	add_definitions("-Wno-error=format-nonliteral")
 	add_definitions("-fno-omit-frame-pointer")
 
-	#add_definitions("-Wshadow")
+    remove_definitions("-Wshadow")
+
 	#add_definitions("-Wall -Wextra")
-	#add_definitions("-Werror") # gcc 4.4.1 stops compiling here
-	#add_definitions("-Winline")
-	#add_definitions("-Wno-comment")
-	#add_definitions("-Wno-unused-but-set-variable")
-	#add_definitions("-Wunused-function")
-	#add_definitions("-Wno-unused-variable")
-	#add_definitions("-Wno-write-strings")
-	#add_definitions("-Wunreachable-code") # gcc 4.4.1 stops compiling here
-	#add_definitions("-Wold-style-cast")B
+	#add_definitions("-Werror")
 
 	# omit temporary files
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pipe")
@@ -71,16 +45,21 @@ if(CMAKE_COMPILER_IS_GNUCXX)
 	endif()
 endif()
 
+if(MSVC)
+   add_definitions("/wd4018") # warning C4018: signed/unsigned mismatch
+   add_definitions("/wd4244") # warning C4244: conversion from 'xyz' to 'xyz', possible loss of data
+   add_definitions("/wd4355") # warning C4355: 'this' : used in base member initializer list
+   add_definitions("/wd4800") # warning C4800: forcing value to bool 'true' or 'false' (performance warning)
+endif()
 
 set(PROTOBUF_INCLUDE_DIRS
     ${CMAKE_CURRENT_SOURCE_DIR}/src
     ${CMAKE_CURRENT_SOURCE_DIR}/config
     PARENT_SCOPE
-   )
+)
+
 set(PROTOBUF_LIBRARIES protobuf PARENT_SCOPE)
+
 set(PROTOBUF_PROTOC_EXECUTABLE ${CMAKE_CURRENT_SOURCE_DIR}/bin/protoc PARENT_SCOPE)
 
-
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/src/google/protobuf)
-
-

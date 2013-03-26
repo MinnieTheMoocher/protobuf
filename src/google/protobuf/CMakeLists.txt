@@ -1,12 +1,11 @@
 cmake_minimum_required(VERSION 2.8)
 project(protobuf)
 
-remove_definitions("-Wshadow")
-
 include_directories(BEFORE
-                    ${CMAKE_CURRENT_SOURCE_DIR}
-                    ${CMAKE_CURRENT_SOURCE_DIR}/../../../src
-                    ${CMAKE_CURRENT_SOURCE_DIR}/../../../config)
+   ${CMAKE_CURRENT_SOURCE_DIR}
+   ${CMAKE_CURRENT_SOURCE_DIR}/../../../src
+   ${CMAKE_CURRENT_SOURCE_DIR}/../../../config
+)
 
 set(SOURCES
    ../../../config/config.h
@@ -41,30 +40,7 @@ set(SOURCES
    stubs/structurally_valid.cc
    stubs/strutil.cc
    stubs/substitute.cc
-   )
-
-
-if (CMAKE_CROSSCOMPILING)
-   if (CMAKE_SYSTEM_PROCESSOR STREQUAL "arm")
-   else(CMAKE_SYSTEM_PROCESSOR STREQUAL "arm")
-      message(FATAL_ERROR "Processor ${CMAKE_SYSTEM_PROCESSOR) not supported.")
-   endif(CMAKE_SYSTEM_PROCESSOR STREQUAL "arm")
-
-else (CMAKE_CROSSCOMPILING)
-   if (UNIX)
-      if (NOT APPLE)
-         #set(SOURCES
-            #${SOURCES}
-            #)
-      endif (NOT APPLE)
-   else (UNIX)
-      if (WIN32)
-         #set(SOURCES
-            #${SOURCES}
-            #)
-      endif (WIN32)
-   endif (UNIX)
-endif(CMAKE_CROSSCOMPILING)
+)
 
 add_library(protobuf STATIC
    ${SOURCES}

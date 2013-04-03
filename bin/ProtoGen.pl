@@ -19,12 +19,26 @@ use File::Spec;
 use Cwd;
 use Env;
 
+
 {
+   my $is_windows = ( $ENV{'OS'} eq "Windows_NT" );
+
    my $argc = $#ARGV+1; 
 
    $argc==2 || die "Error: This script needs 2 parameters. Invocation: protobuf.pl D:\\some\\input\\folder\\with\\proto\\files D:\\some\\output\\folder\n";
    
    my $indir  = Cwd::abs_path($ARGV[0]);
+   if($is_windows)
+   {
+      # The previous call to Cwd::abs_path unwantedly replaces all \ by /, we have to manually undo that
+      $indir =~ s/\//\\/g;
+      
+      # Sometimes, we get a lowercase drive letter as input, but while(my $file1 = readdir(DIR)) below will return uppercase ones.
+      # That will make the --proto_path= option no longer an exact prefix of the input filename, which will make protoc.exe complain.
+      # Thus, we have to make the drive letter uppercase again. \U starts uppercase conversion, \E ends it. :-/
+      $indir =~ s/^([a-z])(:.*)$/\U$1\E$2/g;
+   }
+
    my $outdir = $ARGV[1];
    if(! -d $outdir)
    {
@@ -34,7 +48,7 @@ use Env;
    $outdir = Cwd::abs_path($outdir);
 
    my $protoc_exe;
-   if($ENV{'OS'} eq "Windows_NT")
+   if($is_windows)
    {
       $protoc_exe   = "protoc.exe --error_format=msvs"; # todo: add this option for VS builds only, not for MonoDevelop
    }

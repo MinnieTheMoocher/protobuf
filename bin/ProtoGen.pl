@@ -1,5 +1,14 @@
 #!/usr/bin/perl
 
+# This script takes 2 parameters. Example incovation:
+#
+#    protobuf.pl D:\some\input\folder\with\proto\files D:\some\output\folder
+#
+# It will run the protoc code generator on all *.proto files found in the input folder and output C++ code for it.
+# You only need this script if your build process does not have native protoc rules built-in.
+# This for example is the case for non-cmake generated, hand-written Visual Studio workspaces.
+# In that case, you can invoke this perl script to trigger the code generation.
+
 use 5.006_000;
 use strict;    
 

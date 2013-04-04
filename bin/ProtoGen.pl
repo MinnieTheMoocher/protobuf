@@ -81,10 +81,10 @@ use Env;
 
          if( ($prototimestamp>=$cpptimestamp) || ($prototimestamp>=$htimestamp) )
          {
-            print "Running protobuf code generator $protofile -> $cppfile\n";
+            #print "Running protobuf code generator $protofile -> $cppfile\n";
 
             my $cmd = $protoc_exe . " --proto_path=$indir $protofile --cpp_out=$outdir 2>&1";                
-            #print "$cmd\n";
+            print "$cmd\n";
             my $result = `$cmd`;
             $result eq "" || print "$result\n";
 

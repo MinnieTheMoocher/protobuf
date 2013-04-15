@@ -74,11 +74,11 @@ use Env;
          {
             $cpptimestamp = stat($cppfile)->mtime;
          }
-         if(-e hfile)
+         if(-e $hfile)
          {
             $htimestamp = stat($hfile)->mtime;
          }
-
+         
          if( ($prototimestamp>=$cpptimestamp) || ($prototimestamp>=$htimestamp) )
          {
             #print "Running protobuf code generator $protofile -> $cppfile\n";

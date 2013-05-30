@@ -42,6 +42,7 @@ set(SOURCES
    stubs/substitute.cc
 )
 
+Generateproject(${SOURCES})
 add_library(protobuf STATIC
    ${SOURCES}
 )

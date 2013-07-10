@@ -54,4 +54,4 @@ set(PROTOBUF_INCLUDE_DIRS
 set(PROTOBUF_LIBRARIES protobuf PARENT_SCOPE)
 set(PROTOBUF_PROTOC_EXECUTABLE ${CMAKE_CURRENT_SOURCE_DIR}/bin/protoc PARENT_SCOPE)
 
-add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/src/google/protobuf)
+add_subdirectory(src/google/protobuf)

@@ -25,7 +25,7 @@ use Env;
 
    my $argc = $#ARGV+1; 
 
-   $argc==2 || die "Error: This script needs 2 parameters. Invocation: protobuf.pl D:\\some\\input\\folder\\with\\proto\\files D:\\some\\output\\folder\n";
+   $argc==2 || $argc==3 || die "Error: This script needs 2 or 3 parameters. Invocation: protobuf.pl D:\\some\\input\\folder\\with\\proto\\files D:\\some\\output\\folder (optional additional search path)\n";
    
    my $indir  = Cwd::abs_path($ARGV[0]);
    if($is_windows)
@@ -66,6 +66,7 @@ use Env;
          my $protofile = File::Spec->catfile($indir,  $name1.".proto");
          my $hfile     = File::Spec->catfile($outdir, $name1.".pb.h");     
          my $cppfile   = File::Spec->catfile($outdir, $name1.".pb.cc");     
+         my $addincl   = $argc==3 ? ("--proto_path=" . $ARGV[2]) : "";
 
          my $prototimestamp = stat($protofile)->mtime;
          my $cpptimestamp   = $prototimestamp;
@@ -83,7 +84,7 @@ use Env;
          {
             #print "Running protobuf code generator $protofile -> $cppfile\n";
 
-            my $cmd = $protoc_exe . " --proto_path=$indir $protofile --cpp_out=$outdir 2>&1";                
+            my $cmd = $protoc_exe . " --proto_path=$indir $addincl $protofile --cpp_out=$outdir 2>&1";                
             print "$cmd\n";
             my $result = `$cmd`;
             $result eq "" || print "$result\n";

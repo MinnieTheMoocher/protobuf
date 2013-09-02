@@ -7,7 +7,7 @@ include_directories(BEFORE
    ${CMAKE_CURRENT_SOURCE_DIR}/../../../config
 )
 
-set(SOURCES
+set(PROTOBUF_SOURCES
    ../../../config/config.h
    descriptor.cc
    descriptor.pb.cc
@@ -42,7 +42,30 @@ set(SOURCES
    stubs/substitute.cc
 )
 
-Generateproject(${SOURCES})
+Generateproject(${PROTOBUF_SOURCES})
 add_library(protobuf STATIC
-   ${SOURCES}
+   ${PROTOBUF_SOURCES}
 )
+
+set(PROTOBUF_LITE_SOURCES
+   ../../../config/config.h
+   extension_set.cc
+   generated_message_util.cc
+   message_lite.cc
+   repeated_field.cc
+   wire_format_lite.cc
+
+   io/coded_stream.cc
+   io/zero_copy_stream.cc
+   io/zero_copy_stream_impl_lite.cc
+
+   stubs/common.cc
+   stubs/once.cc
+)
+
+Generateproject(${PROTOBUF_LITE_SOURCES})
+add_library(protobuf_lite STATIC
+   ${PROTOBUF_LITE_SOURCES}
+)
+
+

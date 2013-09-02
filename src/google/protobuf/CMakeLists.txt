@@ -47,8 +47,10 @@ add_library(protobuf STATIC
    ${PROTOBUF_SOURCES}
 )
 
+
 set(PROTOBUF_LITE_SOURCES
    ../../../config/config.h
+
    extension_set.cc
    generated_message_util.cc
    message_lite.cc
@@ -67,5 +69,4 @@ Generateproject(${PROTOBUF_LITE_SOURCES})
 add_library(protobuf_lite STATIC
    ${PROTOBUF_LITE_SOURCES}
 )
-
 

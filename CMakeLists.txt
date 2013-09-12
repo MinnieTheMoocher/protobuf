@@ -20,6 +20,7 @@ if(CMAKE_COMPILER_IS_GNUCXX)
    add_definitions("-Wno-unused-function")
    add_definitions("-Wno-error=format-nonliteral")
    add_definitions("-Wno-sign-compare")
+   add_definitions("-Wno-sign-conversion")
 
    if(CMAKE_CXX_COMPILER_VERSION VERSION_GREATER "4.7.0")
      add_definitions("-Wno-unused-local-typedefs")

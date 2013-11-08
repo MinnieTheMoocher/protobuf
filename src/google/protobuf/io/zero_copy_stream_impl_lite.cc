@@ -36,6 +36,8 @@
 #include <google/protobuf/stubs/common.h>
 #include <google/protobuf/stubs/stl_util-inl.h>
 
+#include <algorithm> // workaround by S.Lohse: added missing #include
+
 namespace google {
 namespace protobuf {
 namespace io {

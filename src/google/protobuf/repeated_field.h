@@ -48,6 +48,7 @@
 
 #include <string>
 #include <iterator>
+#include <algorithm> // workaround by S.Lohse: added missing #include
 #include <google/protobuf/stubs/common.h>
 #include <google/protobuf/message_lite.h>
 

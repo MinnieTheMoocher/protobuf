@@ -70,3 +70,82 @@ add_library(protobuf_lite STATIC
    ${PROTOBUF_LITE_SOURCES}
 )
 
+
+set(PROTOC_SOURCES
+   compiler/cpp/cpp_enum.cc
+   compiler/cpp/cpp_enum.h
+   compiler/cpp/cpp_enum_field.cc
+   compiler/cpp/cpp_enum_field.h
+   compiler/cpp/cpp_extension.cc
+   compiler/cpp/cpp_extension.h
+   compiler/cpp/cpp_field.cc
+   compiler/cpp/cpp_field.h
+   compiler/cpp/cpp_file.cc
+   compiler/cpp/cpp_file.h
+   compiler/cpp/cpp_generator.cc
+   compiler/cpp/cpp_generator.h
+   compiler/cpp/cpp_helpers.cc
+   compiler/cpp/cpp_helpers.h
+   compiler/cpp/cpp_message.cc
+   compiler/cpp/cpp_message.h
+   compiler/cpp/cpp_message_field.cc
+   compiler/cpp/cpp_message_field.h
+   compiler/cpp/cpp_primitive_field.cc
+   compiler/cpp/cpp_primitive_field.h
+   compiler/cpp/cpp_service.cc
+   compiler/cpp/cpp_service.h
+   compiler/cpp/cpp_string_field.cc
+   compiler/cpp/cpp_string_field.h
+
+   compiler/java/java_enum.cc
+   compiler/java/java_enum.h
+   compiler/java/java_enum_field.cc
+   compiler/java/java_enum_field.h
+   compiler/java/java_extension.cc
+   compiler/java/java_extension.h
+   compiler/java/java_field.cc
+   compiler/java/java_field.h
+   compiler/java/java_file.cc
+   compiler/java/java_file.h
+   compiler/java/java_generator.cc
+   compiler/java/java_generator.h
+   compiler/java/java_helpers.cc
+   compiler/java/java_helpers.h
+   compiler/java/java_message.cc
+   compiler/java/java_message.h
+   compiler/java/java_message_field.cc
+   compiler/java/java_message_field.h
+   compiler/java/java_primitive_field.cc
+   compiler/java/java_primitive_field.h
+   compiler/java/java_service.cc
+   compiler/java/java_service.h
+   compiler/java/java_string_field.cc
+   compiler/java/java_string_field.h
+
+   compiler/python/python_generator.cc
+   compiler/python/python_generator.h
+
+   compiler/code_generator.cc
+   compiler/code_generator.h
+   compiler/command_line_interface.cc
+   compiler/command_line_interface.h
+   compiler/importer.cc
+   compiler/importer.h
+   compiler/package_info.h
+   compiler/parser.cc
+   compiler/parser.h
+   compiler/plugin.cc
+   compiler/plugin.h
+   compiler/plugin.pb.cc
+   compiler/plugin.pb.h
+   compiler/subprocess.cc
+   compiler/subprocess.h
+   compiler/zip_writer.cc
+   compiler/zip_writer.h
+
+   compiler/main.cc
+)
+
+#Generateproject(${PROTOC_SOURCES})
+#add_executable(protoc ${PROTOC_SOURCES})
+#target_link_libraries(protoc protobuf)

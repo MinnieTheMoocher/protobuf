@@ -365,7 +365,7 @@
 // feature depending on tuple with be disabled in this mode).
 #ifndef GTEST_HAS_TR1_TUPLE
 // The user didn't tell us not to do it, so we assume it's OK.
-#define GTEST_HAS_TR1_TUPLE 1
+#define GTEST_HAS_TR1_TUPLE 0 // https://groups.google.com/forum/?fromgroups=#!topic/protobuf/wNVDiburA1Q%5B1-25-false%5D
 #endif  // GTEST_HAS_TR1_TUPLE
 
 // Determines whether Google Test's own tr1 tuple implementation

@@ -56,11 +56,18 @@ set(PROTOBUF_INCLUDE_DIRS
 )
 
 set(PROTOBUF_LIBRARIES protobuf_lite PARENT_SCOPE)
-# Check if we are on a 64bit build system
-if( CMAKE_SIZEOF_VOID_P EQUAL 8 )
-  set(PROTOBUF_PROTOC_EXECUTABLE ${CMAKE_CURRENT_SOURCE_DIR}/bin/64bit/protoc PARENT_SCOPE)
+
+if(APPLE)
+   # use protoc compiled for apple
+   set(PROTOBUF_PROTOC_EXECUTABLE ${CMAKE_CURRENT_SOURCE_DIR}/bin/apple/protoc PARENT_SCOPE)
 else()
-  set(PROTOBUF_PROTOC_EXECUTABLE ${CMAKE_CURRENT_SOURCE_DIR}/bin/protoc PARENT_SCOPE)
+   # Check if we are on a 64bit build system
+   if( CMAKE_SIZEOF_VOID_P EQUAL 8 )
+     set(PROTOBUF_PROTOC_EXECUTABLE ${CMAKE_CURRENT_SOURCE_DIR}/bin/64bit/protoc PARENT_SCOPE)
+   else()
+     set(PROTOBUF_PROTOC_EXECUTABLE ${CMAKE_CURRENT_SOURCE_DIR}/bin/protoc PARENT_SCOPE)
+   endif()
 endif()
+
 
 add_subdirectory(src/google/protobuf)

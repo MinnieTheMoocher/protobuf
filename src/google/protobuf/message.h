@@ -116,7 +116,11 @@
 // HP C++'s iosfwd doesn't work.
 #include <iostream>
 #else
+#if defined(__APPLE__)
+#include <iostream>
+#else
 #include <iosfwd>
+#endif
 #endif
 
 #include <google/protobuf/message_lite.h>

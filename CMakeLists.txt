@@ -61,12 +61,26 @@ set(PROTOBUF_LIBRARIES protobuf_lite PARENT_SCOPE)
 if(APPLE)
    # use protoc compiled for apple
    set(PROTOBUF_PROTOC_EXECUTABLE ${CMAKE_CURRENT_SOURCE_DIR}/bin/apple/protoc PARENT_SCOPE)
+elseif(CMAKE_HOST_WIN32)
+   set(PROTOBUF_PROTOC_EXECUTABLE ${CMAKE_CURRENT_SOURCE_DIR}/bin/protoc.exe PARENT_SCOPE)
 else()
-   # Check if we are on a 64bit build system
-   if( CMAKE_SIZEOF_VOID_P EQUAL 8 )
-     set(PROTOBUF_PROTOC_EXECUTABLE ${CMAKE_CURRENT_SOURCE_DIR}/bin/64bit/protoc PARENT_SCOPE)
-   else()
+   # Assume we're on a Linux system
+   # First try 32bit executable
+   execute_process(COMMAND          ${CMAKE_CURRENT_SOURCE_DIR}/bin/protoc
+                   RESULT_VARIABLE  PROTOC_32
+                   OUTPUT_QUIET ERROR_QUIET)
+   if("${PROTOC_32}" STREQUAL "1")
      set(PROTOBUF_PROTOC_EXECUTABLE ${CMAKE_CURRENT_SOURCE_DIR}/bin/protoc PARENT_SCOPE)
+   else()
+     # no try 64bit executable
+     execute_process(COMMAND          ${CMAKE_CURRENT_SOURCE_DIR}/bin/64bit/protoc
+                     RESULT_VARIABLE  PROTOC_64
+                     OUTPUT_QUIET ERROR_QUIET)
+     if("${PROTOC_64}" STREQUAL "1")
+       set(PROTOBUF_PROTOC_EXECUTABLE ${CMAKE_CURRENT_SOURCE_DIR}/bin/64bit/protoc PARENT_SCOPE)
+     else()
+       message(WARNING "No working protoc found!")
+     endif()
    endif()
 endif()
 

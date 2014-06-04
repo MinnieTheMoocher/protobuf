@@ -10,7 +10,7 @@
 # In that case, you can invoke this perl script to trigger the code generation.
 
 use 5.006_000;
-use strict;    
+use strict;
 
 use File::stat;
 use File::Basename;
@@ -23,16 +23,16 @@ use Env;
 {
    my $is_windows = ( $ENV{'OS'} eq "Windows_NT" );
 
-   my $argc = $#ARGV+1; 
+   my $argc = $#ARGV+1;
 
    $argc==2 || $argc==3 || die "Error: This script needs 2 or 3 parameters. Invocation: protobuf.pl D:\\some\\input\\folder\\with\\proto\\files D:\\some\\output\\folder (optional additional search path)\n";
-   
+
    my $indir  = Cwd::abs_path($ARGV[0]);
    if($is_windows)
    {
       # The previous call to Cwd::abs_path unwantedly replaces all \ by /, we have to manually undo that
       $indir =~ s/\//\\/g;
-      
+
       # Sometimes, we get a lowercase drive letter as input, but while(my $file1 = readdir(DIR)) below will return uppercase ones.
       # That will make the --proto_path= option no longer an exact prefix of the input filename, which will make protoc.exe complain.
       # Thus, we have to make the drive letter uppercase again. \U starts uppercase conversion, \E ends it. :-/
@@ -50,11 +50,11 @@ use Env;
    my $protoc_exe;
    if($is_windows)
    {
-      $protoc_exe   = "protoc.exe --error_format=msvs"; # todo: add this option for VS builds only, not for MonoDevelop
+      $protoc_exe   = "win32\\protoc.exe --error_format=msvs"; # TODO add this option for VS builds only, not for MonoDevelop
    }
    else
    {
-      $protoc_exe   = "./protoc";
+      $protoc_exe   = "./linux32/protoc"; # TODO support linux64 and apple as well
    }
 
    opendir(DIR, $indir) or die "Error: Cannot open input directory $indir\n";
@@ -64,8 +64,8 @@ use Env;
       if($suffix1 eq ".proto")
       {
          my $protofile = File::Spec->catfile($indir,  $name1.".proto");
-         my $hfile     = File::Spec->catfile($outdir, $name1.".pb.h");     
-         my $cppfile   = File::Spec->catfile($outdir, $name1.".pb.cc");     
+         my $hfile     = File::Spec->catfile($outdir, $name1.".pb.h");
+         my $cppfile   = File::Spec->catfile($outdir, $name1.".pb.cc");
          my $addincl   = $argc==3 ? ("--proto_path=" . $ARGV[2]) : "";
 
          my $prototimestamp = stat($protofile)->mtime;
@@ -79,12 +79,12 @@ use Env;
          {
             $htimestamp = stat($hfile)->mtime;
          }
-         
+
          if( ($prototimestamp>=$cpptimestamp) || ($prototimestamp>=$htimestamp) )
          {
             #print "Running protobuf code generator $protofile -> $cppfile\n";
 
-            my $cmd = $protoc_exe . " --proto_path=$indir $addincl $protofile --cpp_out=$outdir 2>&1";                
+            my $cmd = $protoc_exe . " --proto_path=$indir $addincl $protofile --cpp_out=$outdir 2>&1";
             print "$cmd\n";
             my $result = `$cmd`;
             $result eq "" || print "$result\n";

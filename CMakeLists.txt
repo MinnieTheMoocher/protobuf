@@ -59,29 +59,29 @@ set(PROTOBUF_INCLUDE_DIRS
 set(PROTOBUF_LIBRARIES protobuf_lite PARENT_SCOPE)
 
 if(APPLE)
-   # use protoc compiled for apple
-   set(PROTOBUF_PROTOC_EXECUTABLE ${CMAKE_CURRENT_SOURCE_DIR}/bin/apple/protoc PARENT_SCOPE)
+   set(PROTOBUF_PROTOC_EXECUTABLE ${CMAKE_CURRENT_SOURCE_DIR}/bin/apple/protoc       PARENT_SCOPE)
 elseif(CMAKE_HOST_WIN32)
-   set(PROTOBUF_PROTOC_EXECUTABLE ${CMAKE_CURRENT_SOURCE_DIR}/bin/protoc.exe PARENT_SCOPE)
-else()
-   # Assume we're on a Linux system
-   # First try 32bit executable
-   execute_process(COMMAND          ${CMAKE_CURRENT_SOURCE_DIR}/bin/protoc
+   set(PROTOBUF_PROTOC_EXECUTABLE ${CMAKE_CURRENT_SOURCE_DIR}/bin/win32/protoc.exe   PARENT_SCOPE)
+elseif(CMAKE_HOST_UNIX) # assume we're on a Linux system
+   # first, try 32bit executable:
+   execute_process(COMMAND          ${CMAKE_CURRENT_SOURCE_DIR}/bin/linux32/protoc
                    RESULT_VARIABLE  PROTOC_32
                    OUTPUT_QUIET ERROR_QUIET)
    if("${PROTOC_32}" STREQUAL "1")
-     set(PROTOBUF_PROTOC_EXECUTABLE ${CMAKE_CURRENT_SOURCE_DIR}/bin/protoc PARENT_SCOPE)
+      set(PROTOBUF_PROTOC_EXECUTABLE ${CMAKE_CURRENT_SOURCE_DIR}/bin/linux32/protoc  PARENT_SCOPE)
    else()
-     # no try 64bit executable
-     execute_process(COMMAND          ${CMAKE_CURRENT_SOURCE_DIR}/bin/64bit/protoc
+     # now try 64bit executable:
+     execute_process(COMMAND          ${CMAKE_CURRENT_SOURCE_DIR}/bin/linux64/protoc
                      RESULT_VARIABLE  PROTOC_64
                      OUTPUT_QUIET ERROR_QUIET)
      if("${PROTOC_64}" STREQUAL "1")
-       set(PROTOBUF_PROTOC_EXECUTABLE ${CMAKE_CURRENT_SOURCE_DIR}/bin/64bit/protoc PARENT_SCOPE)
+       set(PROTOBUF_PROTOC_EXECUTABLE ${CMAKE_CURRENT_SOURCE_DIR}/bin/linux64/protoc PARENT_SCOPE)
      else()
        message(WARNING "No working protoc found!")
      endif()
    endif()
+else()
+   message(WARNING "Unknown operating system, no working protoc found!")
 endif()
 
 

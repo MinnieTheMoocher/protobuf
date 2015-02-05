@@ -910,7 +910,10 @@ bool CommandLineInterface::InterpretArgument(const string& name,
         cerr << disk_path << ": warning: directory does not exist." << endl;
       }
 
-      proto_path_.push_back(make_pair<string, string>(virtual_path, disk_path));
+      // Don't use make_pair as the old/default standard library on Solaris
+      // doesn't support it without explicit template parameters, which are
+      // incompatible with C++0x's make_pair.
+      proto_path_.push_back(pair<string, string>(virtual_path, disk_path));
     }
 
   } else if (name == "-o" || name == "--descriptor_set_out") {

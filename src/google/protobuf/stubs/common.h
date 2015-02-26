@@ -1208,4 +1208,13 @@ using namespace std;  // Don't do this at home, kids.
 }  // namespace protobuf
 }  // namespace google
 
+// Some systems define major and minor (e.g. QNX)
+// Remove these definitions to avoid clashed with generated header
+#ifdef major
+#undef major
+#endif
+#ifdef minor
+#undef minor
+#endif
+
 #endif  // GOOGLE_PROTOBUF_COMMON_H__

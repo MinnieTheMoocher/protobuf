@@ -104,10 +104,11 @@ set(PROTOBUF_LITE_SOURCES
    wire_format_lite.cc
    wire_format_lite.h
 
+   io/coded_stream.cc
+   io/coded_stream.h
+   io/coded_stream_inl.h
    io/zero_copy_stream.cc
    io/zero_copy_stream.h
-   io/zero_copy_stream_impl.cc
-   io/zero_copy_stream_impl.h
    io/zero_copy_stream_impl_lite.cc
    io/zero_copy_stream_impl_lite.h
 

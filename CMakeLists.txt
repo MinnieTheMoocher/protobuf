@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 2.8.5)
 
 DefaultCompileFlags(EXTERNAL)
 
@@ -8,7 +8,8 @@ set(PROTOBUF_INCLUDE_DIRS
    PARENT_SCOPE
 )
 
-set(PROTOBUF_LIBRARIES protobuf_lite PARENT_SCOPE)
+set(PROTOBUF_LIBRARIES protobuf PARENT_SCOPE)
+set(PROTOBUF_LITE_LIBRARIES protobuf_lite PARENT_SCOPE) # [New since CMake 2.8.5]. See CMake modules help 'FindProtobuf'
 
 if(APPLE)
    set(PROTOBUF_PROTOC_EXECUTABLE ${CMAKE_CURRENT_SOURCE_DIR}/bin/apple/protoc       PARENT_SCOPE)

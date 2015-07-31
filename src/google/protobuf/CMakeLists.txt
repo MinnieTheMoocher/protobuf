@@ -7,6 +7,17 @@ include_directories(BEFORE
    ${CMAKE_CURRENT_SOURCE_DIR}/../../../config
 )
 
+
+
+if(PROTOBUF_LINKTYPE STREQUAL "STATIC")
+  set(LIBRARY_TYPE STATIC)
+endif()
+
+if(PROTOBUF_LINKTYPE STREQUAL "SHARED")
+  set(LIBRARY_TYPE SHARED)
+endif()
+
+
 set(PROTOBUF_SOURCES
    ../../../config/config.h
    descriptor.cc
@@ -85,9 +96,8 @@ set(PROTOBUF_SOURCES
 )
 
 Generateproject(${PROTOBUF_SOURCES})
-add_library(protobuf STATIC
-   ${PROTOBUF_SOURCES}
-)
+
+add_library(protobuf ${LIBRARY_TYPE}  ${PROTOBUF_SOURCES})
 
 
 set(PROTOBUF_LITE_SOURCES
@@ -119,9 +129,7 @@ set(PROTOBUF_LITE_SOURCES
 )
 
 Generateproject(${PROTOBUF_LITE_SOURCES})
-add_library(protobuf_lite STATIC
-   ${PROTOBUF_LITE_SOURCES}
-)
+add_library(protobuf_lite ${LIBRARY_TYPE}  ${PROTOBUF_LITE_SOURCES})
 
 
 set(PROTOC_SOURCES

@@ -35,15 +35,19 @@
 #include <stdio.h>
 #include <sys/stat.h>
 #include <sys/types.h>
+
 #ifdef _MSC_VER
-#define WIN32_LEAN_AND_MEAN  // yeah, right
-#include <windows.h>         // Find*File().  :(
-#include <io.h>
-#include <direct.h>
+   #ifndef WIN32_LEAN_AND_MEAN
+      #define WIN32_LEAN_AND_MEAN  // yeah, right
+   #endif
+   #include <windows.h>         // Find*File().  :(
+   #include <io.h>
+   #include <direct.h>
 #else
-#include <dirent.h>
-#include <unistd.h>
+   #include <dirent.h>
+   #include <unistd.h>
 #endif
+
 #include <errno.h>
 
 namespace google {

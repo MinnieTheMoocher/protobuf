@@ -34,12 +34,15 @@
 #define GOOGLE_PROTOBUF_COMPILER_SUBPROCESS_H__
 
 #ifdef _WIN32
-#define WIN32_LEAN_AND_MEAN   // right...
-#include <windows.h>
+   #ifndef WIN32_LEAN_AND_MEAN
+      #define WIN32_LEAN_AND_MEAN   // right...
+   #endif
+   #include <windows.h>
 #else  // _WIN32
-#include <sys/types.h>
-#include <unistd.h>
+   #include <sys/types.h>
+   #include <unistd.h>
 #endif  // !_WIN32
+
 #include <google/protobuf/stubs/common.h>
 
 #include <string>
